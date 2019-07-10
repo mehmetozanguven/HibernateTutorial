@@ -4,7 +4,6 @@
 - I used Postgresql as a database and Fedora 30 as an operating system
 
 
-
 ## OneToOne Mapping
 
 - In this scheme, there is a Instructor object and each Instructor has only one associated object called InstructorDetail
@@ -69,6 +68,24 @@ public class SimpleInstructorDetail{
 	}
 }
 ```
-	
-	 
 
+## ManyToOne Mapping Bidirectional
+- Instructor can have many course
+
+> For simplicity, course can only be given one instructor
+
+ - If I delete any instructor, I shouldn't delete the course !!
+ - If I delete any course, I shouldn't delete the instructor of that course !!
+
+> Before running the project, please add the new table called COURSE
+
+```sql
+CREATE TABLE COURSE(
+    id SERIAL PRIMARY KEY,
+    title TEXT UNIQUE,
+    instructor_id SERIAL,
+    FOREIGN KEY (instructor_id) REFERENCES INSTRUCTOR(id)
+);
+```
+
+> UNIQUE constraint is used to prevent duplicate course titles
