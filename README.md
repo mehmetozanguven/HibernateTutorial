@@ -18,9 +18,9 @@
 
 **INSTRUCTOR DETAIL table** sql code:
 
-```plsql
+```sql
 CREATE TABLE INSTRUCTOR_DETAIL(
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     youtube_channel TEXT,
     hobby TEXT
 );
@@ -30,9 +30,9 @@ CREATE TABLE INSTRUCTOR_DETAIL(
 
 **INSTRUCTOR table** sql code:
 
-```plsql
+```sql
 CREATE TABLE INSTRUCTOR(
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     first_name TEXT,
     last_name TEXT,
     email TEXT,
