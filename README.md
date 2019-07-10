@@ -41,3 +41,34 @@ CREATE TABLE INSTRUCTOR(
 );
 ```
 
+## OneToOne Bidirectional Mapping
+- In the first example (OneToOne Mapping), I couldn't reach the `instructor` from the `instructor_detail` table. Now I will update only the Java codes (without touching the sql codes) which allow me to access instructor from instructor_detail
+- To enable this propert, I need to use `mappedBy` property in the `@OneToOne` annotation.
+- Shortly `@OneToOne(mappedBy="instructorDetail")`
+- In detail, mappedBy means that:
+	- The @JoinColumn annotation helps us specify the column we’ll use for joining an entity association or element collection. On the other hand, the mappedBy attribute is used to define the referencing side (non-owning side) of the relationship.
+	- The value of mappedBy is the name of the association-mapping attribute on the owning side
+	- When I apply this property in my project, I update the `InstructerDetail` class:
+
+```java
+public class SimpleInstructorDetail{
+....
+//add new property for bidirectional
+	@OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+	private SimpleInstructor simpleInstructor;
+	
+	...
+	
+	public SimpleInstructor getSimpleInstructor() {
+		return simpleInstructor;
+	}
+
+
+	public void setSimpleInstructor(SimpleInstructor simpleInstructor) {
+		this.simpleInstructor = simpleInstructor;
+	}
+}
+```
+	
+	 
+
