@@ -1,4 +1,4 @@
-package com.hibernateTutorial.oneToManyRelation;
+package com.hibernateTutorial.eagerVsLazy;
 
 import java.io.File;
 
@@ -25,8 +25,8 @@ public class MainApp {
 			session.beginTransaction();
 
 			//addTwoCoursesToOneInstructor(session, (long)2);
-			//getInstructorCourses(session, (long)2);
-			removeCourse(session, (long)1);
+			getInstructorCourses(session, (long)2);
+			//removeCourse(session, (long)1);
 
 		} finally {
 			session.close();

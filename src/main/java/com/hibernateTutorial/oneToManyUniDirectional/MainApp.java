@@ -1,4 +1,4 @@
-package com.hibernateTutorial.oneToManyRelation;
+package com.hibernateTutorial.oneToManyUniDirectional;
 
 import java.io.File;
 
@@ -15,7 +15,8 @@ public class MainApp {
 		Configuration hibernateConf = new Configuration().configure(new File(HIBERNATE_CONFIG_PATH))
 				.addAnnotatedClass(SimpleInstructor.class)
 				.addAnnotatedClass(SimpleInstructorDetail.class)
-				.addAnnotatedClass(Course.class);
+				.addAnnotatedClass(Course.class)
+				.addAnnotatedClass(Review.class);
 
 		SessionFactory factory = hibernateConf.buildSessionFactory();
 
@@ -23,19 +24,58 @@ public class MainApp {
 		
 		try {
 			session.beginTransaction();
+			
+			Course mathCourse = getCourseById(session, (long) 2);
+			
+			//addReviewToSpecificCourse(session, mathCourse);
 
-			//addTwoCoursesToOneInstructor(session, (long)2);
-			//getInstructorCourses(session, (long)2);
-			removeCourse(session, (long)1);
+			getReviewForCourse(session, ((long) 2));
+			
 
 		} finally {
 			session.close();
 			factory.close();
 		}
 	}
+	
+	private static void getReviewForCourse(Session session, Long courseId) {
+		Course tempCourse = session.get(Course.class, courseId);
+		
+		if (tempCourse == null){
+			System.out.println("There is no course with these id: " + courseId);
+		}else {
+			tempCourse.getAllReviews().forEach(elem -> System.out.println(elem));
+			session.close();
 
+		}
+		
+	}
+	
+	private static void addReviewToSpecificCourse(Session session, Course course) {
+		Review r1 = new Review("So so good");
+		Review r2 = new Review("Not bad");
+		
+		course.addReviewToCourse(r1);
+		course.addReviewToCourse(r2);
+		
+		session.save(course);
+		
+		session.getTransaction().commit();
+	}
+
+	private static Course getCourseById(Session session, Long courseId) {
+		Course tempCourse = session.get(Course.class, courseId);
+		
+		if (tempCourse == null){
+			System.out.println("There is no course with these id: " + courseId);
+			throw new NullPointerException();
+		}else {
+			return tempCourse;
+		}
+		
+	}
+	
 	private static void addTwoCoursesToOneInstructor(Session session, Long instructorId) {
-		session.beginTransaction();
 
 		SimpleInstructor tempInstructor = session.get(SimpleInstructor.class, instructorId);
 
@@ -66,17 +106,6 @@ public class MainApp {
 		}
 	}
 	
-	private static void removeCourse(Session session, Long courseId) {
-		
-		Course tempCourse = session.get(Course.class, courseId);
-		
-		if	(tempCourse == null) {
-			System.out.println("There is no course with these id: " + courseId);
-		}else {
-			session.delete(tempCourse);
-			session.getTransaction().commit();
-		}
-	}
-
+	
 
 }
