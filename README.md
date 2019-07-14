@@ -35,7 +35,7 @@ CREATE TABLE INSTRUCTOR(
     first_name TEXT,
     last_name TEXT,
     email TEXT,
-    instructor_detail_id SERIAL,
+    instructor_detail_id integer,
     FOREIGN KEY (instructor_detail_id) REFERENCES INSTRUCTOR_DETAIL(id)
 );
 ```
@@ -83,7 +83,7 @@ public class SimpleInstructorDetail{
 CREATE TABLE COURSE(
     id SERIAL PRIMARY KEY,
     title TEXT UNIQUE,
-    instructor_id SERIAL,
+    instructor_id integer,
     FOREIGN KEY (instructor_id) REFERENCES INSTRUCTOR(id)
 );
 ```
@@ -179,7 +179,77 @@ public class MainApp{
 CREATE TABLE REVIEW(
     id SERIAL PRIMARY KEY,
     comment TEXT,
-    course_id SERIAL,
+    course_id integer,
     FOREIGN KEY (course_id) REFERENCES COURSE(id)
 );
 ```
+
+
+## ManyToMany Relation
+- Courses can have many students
+- Students can have many courses
+
+First we need to track which student is in which course course and vice-versa
+
+To do that, we will add 2 tables (one for Student and one for CourseStudent). The latter one will hold the foreign keys for each table called `Join Table`
+
+- Student table:
+
+```sql
+CREATE TABLE STUDENT(
+	id SERIAL PRIMARY KEY,
+	first_name TEXT,
+	last_name TEXT,
+	email TEXT
+);
+```
+
+- CourseStudent table
+
+```sql
+CREATE TABLE COURSE_STUDENT(
+	course_id integer,
+	student_id integer,
+	PRIMARY KEY(course_id, student_id),
+	FOREIGN KEY (course_id) REFERENCES COURSE(id),
+	FOREIGN KEY (student_id) REFERENCES STUDENT(id)
+);
+```
+	
+	
+
+For example:
+
+- Course table includes:
+
+10, Java, 2 (CouseId, Title, InstructorId)</br>
+20, Python, 2 (CouseId, Title, InstructorId)
+
+- and Student table includes
+
+100, John, Doe, test@test.com (StudentId, FirstName, LastName, Email)</br>
+200, Susan, Dash, test1@test.com (StudentId, FirstName, LastName, Email)
+
+- then, CourseStudent table will include something like that :
+
+10, 100 (CourseId, StudentId)</br>
+10, 200 (CourseId, StudentId)</br>
+20, 200 (CourseId, StudentId)
+
+- Now update the Course class like this:
+
+```java
+public class Course{
+	...
+	@ManyToMany
+	@JoinTable(
+		name = "COURSE_STUDENT"
+		joinColumns = @JoinColumn(name = "course_id"), 
+		inverseJoinColumns = @JoinColumn(name = "student_id")
+	)
+	private List<Students> students;
+}
+```
+
+
+
