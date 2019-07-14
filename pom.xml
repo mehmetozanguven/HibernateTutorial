@@ -8,10 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>
-		Project represents the one-to-one relation in hibernate.
-		There are 2 tables INSTRUCTOR and INSTRUCTOR_DETAILS where
-		instructor has a foreign key to instructor_details and 
-		"one instructor can have one instructor detail"
+		Simple Project for Hibernate 5.
+		Includes mapping scenarios: OneToOne, ManyToMany etc..
 	</description>
 	<name>oneToOneRelation</name>
 	<url>http://maven.apache.org</url>
