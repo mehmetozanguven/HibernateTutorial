@@ -236,6 +236,26 @@ For example:
 10, 200 (CourseId, StudentId)</br>
 20, 200 (CourseId, StudentId)
 
+
+- Create the Student java class which includes code segment like:
+
+```java
+public class Student{
+	//...
+	@ManyToMany(
+			fetch = FetchType.LAZY,
+			cascade = {CascadeType.DETACH, CascadeType.MERGE,
+					CascadeType.PERSIST, CascadeType.REFRESH}
+			)
+	@JoinTable(
+			name = "COURSE_STUDENT",
+			joinColumns = @JoinColumn(name = "student_id"),
+			inverseJoinColumns = @JoinColumn(name = "course_id")
+			)
+	private List<Course> courses;
+}
+```
+
 - Now update the Course class like this:
 
 ```java
