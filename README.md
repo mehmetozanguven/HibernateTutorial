@@ -5,7 +5,7 @@
 
 
 ## OneToOne Mapping
-
+- [Project link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/oneToOneRelation)
 - In this scheme, there is a Instructor object and each Instructor has only one associated object called InstructorDetail
 - Thus, there is a OneToOne relationship between Instructor and InstructorDetails
 
@@ -41,6 +41,7 @@ CREATE TABLE INSTRUCTOR(
 ```
 
 ## OneToOne Bidirectional Mapping
+- [Project Link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/oneToOneRelationBidirectional)
 - In the first example (OneToOne Mapping), I couldn't reach the `instructor` from the `instructor_detail` table. Now I will update only the Java codes (without touching the sql codes) which allow me to access instructor from instructor_detail
 - To enable this propert, I need to use `mappedBy` property in the `@OneToOne` annotation.
 - Shortly `@OneToOne(mappedBy="instructorDetail")`
@@ -70,6 +71,7 @@ public class SimpleInstructorDetail{
 ```
 
 ## OneToMany Mapping Bidirectional
+-[Project Link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/oneToManyRelation)
 - Instructor can have many course
 
 > For simplicity, course can only be given one instructor
@@ -91,6 +93,7 @@ CREATE TABLE COURSE(
 > UNIQUE constraint is used to prevent duplicate course titles
 
 ## EAGER vs LAZY LOADING
+- [Project Link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/eagerVsLazy)
 - **Eager** loading will load all dependent entities
 - For example, Instructor will have many courses. With eager loading we will load all the courses of the specific instructor
 - **Lazy** loading will load only on request. It will only load the main entity first.
@@ -169,6 +172,7 @@ public class MainApp{
 ```
 
 ## OneToMany Uni-Directional
+- [Project Link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/oneToManyUniDirectional)
 - A courses can have many reviews
 - If I delete a course, I should also delete the reviews
 - Reviews without a course, have no meaning
@@ -186,6 +190,7 @@ CREATE TABLE REVIEW(
 
 
 ## ManyToMany Relation
+- [Project Link](https://github.com/mehmetozanguven/HibernateTutorial/tree/master/src/main/java/com/hibernateTutorial/manyToMany)
 - Courses can have many students
 - Students can have many courses
 
