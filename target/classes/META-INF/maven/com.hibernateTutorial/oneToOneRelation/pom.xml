@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<hibernate.version>5.4.2.Final</hibernate.version>
-		<postgresql.version>42.2.6</postgresql.version>
+		<postgresql.version>42.2.25</postgresql.version>
 	</properties>
 
 	<dependencies>
